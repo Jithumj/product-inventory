@@ -6,7 +6,7 @@ This repository contains both the **API** (ASP.NET Core Web API) and the **UI** 
 
 ## About the Project
 
-The **Product Inventory System** is a full-stack web application designed to help online businesses manage their products, variations (such as size and color), and real-time stock levels efficiently. 
+The **Product Inventory System** is a full-stack web application products, variations (such as size and color), and real-time stock levels efficiently. 
 
 ### Key Features
 
@@ -34,7 +34,7 @@ This monorepo pattern keeps backend and frontend tightly integrated for ease of 
     dotnet restore
     dotnet build
     ```
-3. Apply any necessary database migrations (if using EF/Dapper tools).
+3. use the sql script given and create db.
 4. Run the API:
     ```
     dotnet run
