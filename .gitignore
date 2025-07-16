@@ -1,0 +1,33 @@
+# .gitignore for monorepo (dotnet + node)
+
+# Node/React (ui/)
+ui/node_modules/
+ui/dist/
+ui/build/
+ui/.env.local
+ui/.env.development.local
+ui/.env.test.local
+ui/.env.production.local
+ui/.next/
+ui/.cache/
+ui/npm-debug.log*
+
+# ASP.NET Core (api/)
+api/bin/
+api/obj/
+api/.vs/
+api/.user
+api/.DS_Store
+
+# Global
+.DS_Store
+.env
+*.log
+*.tmp
+*.swp
+.idea/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
