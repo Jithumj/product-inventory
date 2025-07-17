@@ -1,4 +1,5 @@
 Product Inventory Management Monorepo
+
 This repository contains both the API (ASP.NET Core Web API) and the UI (React) for the Product Inventory System with Stock Management.
 
 🗂️ Project Overview
