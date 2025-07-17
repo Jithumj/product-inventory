@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProductInventoryAPI.Dtos.User;
 using ProductInventoryAPI.Services.User;
 
@@ -12,7 +13,8 @@ namespace ProductInventoryAPI.Controllers
         private readonly IUserService _userService;
         public UserController(IUserService userService) =>
             _userService = userService;
-
+        
+        [Authorize]
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserCreateDto dto)
         {
@@ -24,15 +26,17 @@ namespace ProductInventoryAPI.Controllers
             return Ok(new { user.Id, user.UserName, user.Email });
         }
 
+
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto dto)
         {
             var user = await _userService.LoginAsync(dto);
             if (user == null)
                 return Unauthorized("Invalid credentials");
-            return Ok(new { user.Id, user.UserName, user.Email });
+            return Ok(user);
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
@@ -42,6 +46,7 @@ namespace ProductInventoryAPI.Controllers
             return Ok(new { user.Id, user.UserName, user.Email });
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {

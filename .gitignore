@@ -13,11 +13,13 @@ ui/.cache/
 ui/npm-debug.log*
 
 # ASP.NET Core (api/)
-api/bin/
-api/obj/
-api/.vs/
-api/.user
+/bin/
+/obj/
+/.vs/
+/.user
 api/.DS_Store
+*.cache 
+
 
 # Global
 .DS_Store
@@ -31,3 +33,4 @@ api/.DS_Store
 *.user
 *.userosscache
 *.sln.docstates
+

@@ -8,6 +8,6 @@ namespace ProductInventoryAPI.Services.User
         Task<UserModel> RegisterUserAsync(UserCreateDto dto);
         Task<UserModel> GetUserByIdAsync(Guid id);
         Task<bool> DeleteUserAsync(Guid id);
-        Task<UserModel> LoginAsync(LoginDto dto);
+        Task<LoginResponseModel> LoginAsync(LoginDto dto);
     }
 }

@@ -114,10 +114,23 @@ namespace ProductInventoryAPI.Services.Product
         public async Task<ProductModel> GetProductByIdAsync(Guid id)
         {
             using var conn = _context.CreateConnection();
-            string sql = @"SELECT * FROM Products WHERE Id = @Id";
-            var product = await conn.QueryFirstOrDefaultAsync<ProductModel>(sql, new { Id = id });
+
+            // Step 1: Get the product info
+            string sqlProduct = @"SELECT * FROM Products WHERE Id = @Id";
+            var product = await conn.QueryFirstOrDefaultAsync<ProductModel>(sqlProduct, new { Id = id });
+            if (product == null)
+                return null;
+
+            // Step 2: Get its variant combinations
+            string sqlCombinations = @"SELECT * FROM ProductVariantCombinations WHERE ProductId = @Id";
+            var combinations = (await conn.QueryAsync<ProductVariantCombinationModel>(sqlCombinations, new { Id = id })).ToList();
+
+            // Step 3: Attach combinations
+            product.VariantCombinations = combinations;
+
             return product;
         }
+
 
         #endregion
 
@@ -125,9 +138,30 @@ namespace ProductInventoryAPI.Services.Product
         public async Task<IEnumerable<ProductModel>> GetProductsAsync(int page, int pageSize)
         {
             using var conn = _context.CreateConnection();
-            var sql = @"SELECT * FROM Products ORDER BY CreatedDate DESC OFFSET @Skip ROWS FETCH NEXT @Take ROWS ONLY";
-            return await conn.QueryAsync<ProductModel>(sql, new { Skip = (page - 1) * pageSize, Take = pageSize });
+
+            // Get products 
+            var sqlProducts = @"SELECT * FROM Products
+                        ORDER BY CreatedDate DESC
+                        OFFSET @Skip ROWS FETCH NEXT @Take ROWS ONLY";
+            var products = (await conn.QueryAsync<ProductModel>(sqlProducts,
+                new { Skip = (page - 1) * pageSize, Take = pageSize })).ToList();
+
+            if (!products.Any())
+                return products;
+
+            // get all combination rows for the selected products
+            var productIds = products.Select(p => p.Id).ToList();
+            var sqlCombinations = @"SELECT * FROM ProductVariantCombinations WHERE ProductId IN @Ids";
+            var combinations = (await conn.QueryAsync<ProductVariantCombinationModel>(
+                sqlCombinations, new { Ids = productIds })).ToList();
+
+            // assign combinations to the each of their product
+            foreach (var p in products)
+                p.VariantCombinations = combinations.Where(c => c.ProductId == p.Id).ToList();
+
+            return products;
         }
+
         #endregion
 
         #region Addstock

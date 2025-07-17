@@ -13,6 +13,7 @@
         public bool Active { get; set; }
         public string HSNCode { get; set; }
         public decimal TotalStock { get; set; }
+        public List<ProductVariantCombinationModel> VariantCombinations { get; set; } = new();
 
     }
 }

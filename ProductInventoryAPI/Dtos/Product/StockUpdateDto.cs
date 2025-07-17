@@ -2,7 +2,7 @@
 {
     public class StockUpdateDto
     {
-        public Guid CombinationId { get; set; }
+        public string CombinationId { get; set; }
         public decimal Quantity { get; set; }
     }
 }
