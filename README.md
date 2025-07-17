@@ -1,78 +1,119 @@
-# Product Inventory Monorepo
+Product Inventory Management Monorepo
+This repository contains both the API (ASP.NET Core Web API) and the UI (React) for the Product Inventory System with Stock Management.
 
-This repository contains both the **API** (ASP.NET Core Web API) and the **UI** (React) for the Product Inventory System.
+🗂️ Project Overview
+A robust, full-stack web application for managing products with variants (like size, color), stock levels, users, and activity logging. Designed for clarity and maintainability, everything you need—API, UI, and DB scripts—is included and ready to run.
 
----
+Features include:
 
-## About the Project
+Secure user registration/login with token-based (JWT) authentication and authorization
 
-The **Product Inventory System** is a full-stack web application products, variations (such as size and color), and real-time stock levels efficiently. 
+Flexible product creation, including variants and variant options (e.g. "size: M, color: Red")
 
-### Key Features
+Stock management at the variant-combination level,
 
-- **Centralized Product Catalog:** Manage products with images, codes, HSN, and essential details.
-- **Variants & Sub-Variants:** Assign attributes like size, color, or custom options; generate all valid combinations automatically.
-- **Stock Management:** Purchase (add) and sell (remove) inventory at the variant-combination level.
-- **User Management:** Secure user registration and authentication for system access.
-- **Clear RESTful API:** Robust, well-documented backend suitable for frontend/UI, integrations, or reporting.
-- **Modern UI:** Fast, user-friendly React app for admins or operators.
-- **Pagination & Searching:** Supports efficient product listing with filtering options (scalable to thousands of products).
+Automatic generation of variant combinations
 
-This monorepo pattern keeps backend and frontend tightly integrated for ease of development and deployment.
----
+Clean, modern React UI (with Zustand state and Axios API calls)
 
-## Getting Started
+All key API calls and errors are logged to the database
 
-### 1. API (.NET Backend)
+Complete database table scripts included (api/DB/)
 
-1. Open a terminal and navigate to the `api` folder:
-    ```
-    cd api
-    ```
-2. Restore packages and build the solution:
-    ```
-    dotnet restore
-    dotnet build
-    ```
-3. use the sql script given and create db.
-4. Run the API:
-    ```
-    dotnet run
-    ```
-    The API will typically run at `https://localhost:5001` or similar.
+Pagination for product listing
 
----
+🚀 Quick Start
+1️⃣ API (.NET Core Backend)
+Setup the database:
 
-### 2. UI (React Frontend)
+Run the SQL scripts in api/DB/ to create all required tables:
 
-1. Open another terminal and navigate to the `ui` folder:
-    ```
-    cd ui
-    ```
-2. Install dependencies:
-    ```
-    npm install
-    ```
-3. Start the development server:
-    ```
-    npm start
-    ```
-    The UI will typically be available at `http://localhost:3000`.
+Users, Products, Variants, VariantOptions, ProductVariantCombinations, ProductVariantCombinationOptions, Logs, etc.
 
----
+Start the API:
 
-## Configuration
+text
+cd api
+dotnet restore
+dotnet build
+dotnet run
+API runs at https://ocalhost:7146 (see launchSettings.json for actual port).
 
-- **API:** Update connection strings and other settings in `api/appsettings.json`.
-- **UI:** If your API base URL is not the default, set `REACT_APP_API_URL` in `ui/.env` or where used.
+Configuration:
 
----
+Set your DB details in api/appsettings.json as needed.
 
-## Notes
+API Documentation:
 
-- The backend (API) and frontend (UI) code live in separate folders for clarity.
-- Pull requests and branches should be made from the repo root.
-- You may add a `docs/` folder or other top-level directories for shared assets as needed.
+Test all authorized endpoints (and view models) via Swagger at /swagger.
 
----
+Token required: Register and log in (using Swagger or UI) to obtain a JWT for protected endpoints.
+
+2️⃣ UI (React Frontend)
+Install dependencies and start:
+
+text
+cd ui
+npm install
+npm start
+UI is available at http://localhost:5173 by default.
+
+API URL:
+
+If your backend runs on a non-default location, set REACT_APP_API_URL in ui/.env.
+
+🛡️ Authentication & Authorization
+All sensitive API endpoints require a valid JWT passed as a Bearer token.
+
+To test: register a user via UI/login page or API /register route, then use those credentials to log in and get your token.
+
+The UI handles JWT automatically in requests (via Axios).
+
+📃 Table Scripts
+ALL required SQL table scripts are under api/DB/—run these before using the app/API.
+
+Some sample/test data can be added manually or via UI registration.
+
+🔍 Logging
+All significant actions (user register/log in, product/stock changes, errors) are logged in the Logs table.
+
+Log entries include a unique Guid, DateTime, and the LogMessage.
+
+🧩 Technology Stack
+Backend:
+
+ASP.NET Core Web API
+
+Dapper (SQL access)
+
+JWT Authentication/Authorization
+
+Logging (custom service, logs to DB)
+
+Frontend:
+
+React, Axios
+
+Zustand (global state management)
+
+Minimal, fast UI
+
+🗒️ User/Flow Demo
+Register a new user:
+
+Use UI login page or API /register to create a user.
+
+Log in:
+
+Gets a JWT token.
+
+Manage Products:
+
+Create products with variants (size/color/etc.), images, and full details.
+
+Stock Operations:
+
+Add or remove stock for any variant combination.
+
+All actions require authentication, and are logged automatically.
 
