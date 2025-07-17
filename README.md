@@ -56,8 +56,11 @@ Install dependencies and start:
 
 text
 cd ui
+
 npm install
-npm start
+
+npm run dev
+
 UI is available at http://localhost:5173 by default.
 
 API URL:
