@@ -13,8 +13,6 @@ namespace ProductInventoryAPI.Controllers
         private readonly IUserService _userService;
         public UserController(IUserService userService) =>
             _userService = userService;
-        
-        [Authorize]
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserCreateDto dto)
         {
@@ -47,6 +45,16 @@ namespace ProductInventoryAPI.Controllers
         }
 
         [Authorize]
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var users = await _userService.GetAllUsersAsync();
+            if (users == null)
+                return NotFound();
+            return Ok(users); 
+        }
+        [Authorize]
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
@@ -55,5 +63,6 @@ namespace ProductInventoryAPI.Controllers
                 return NotFound();
             return NoContent();
         }
+
     }
 }

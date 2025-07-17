@@ -9,5 +9,6 @@ namespace ProductInventoryAPI.Services.User
         Task<UserModel> GetUserByIdAsync(Guid id);
         Task<bool> DeleteUserAsync(Guid id);
         Task<LoginResponseModel> LoginAsync(LoginDto dto);
+        Task<IEnumerable<UserlistModel>> GetAllUsersAsync();
     }
 }

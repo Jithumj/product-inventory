@@ -1,4 +1,6 @@
-﻿namespace ProductInventoryAPI.Models
+﻿using ProductInventoryAPI.Dtos.Product;
+
+namespace ProductInventoryAPI.Models
 {
     public class ProductModel
     {
@@ -14,6 +16,7 @@
         public string HSNCode { get; set; }
         public decimal TotalStock { get; set; }
         public List<ProductVariantCombinationModel> VariantCombinations { get; set; } = new();
+        public List<VariantDto> Variants { get; set; } = new();
 
     }
 }
