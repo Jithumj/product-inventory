@@ -3,7 +3,7 @@ Product Inventory Management Monorepo
 This repository contains both the API (ASP.NET Core Web API) and the UI (React) for the Product Inventory System with Stock Management.
 
 🗂️ Project Overview
-A robust, full-stack web application for managing products with variants (like size, color), stock levels, users, and activity logging. Designed for clarity and maintainability, everything you need—API, UI, and DB scripts—is included and ready to run.
+A full-stack web application for managing products with variants (like size, color), stock levels, users, and activity logging. Designed for clarity and maintainability, everything you need—API, UI, and DB scripts—is included and ready to run.
 
 Features include:
 
