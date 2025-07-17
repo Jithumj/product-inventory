@@ -39,7 +39,7 @@ cd api
 dotnet restore
 dotnet build
 dotnet run
-API runs at https://ocalhost:7146 (see launchSettings.json for actual port).
+API runs at https://localhost:7146 (see launchSettings.json for actual port).
 
 Configuration:
 
